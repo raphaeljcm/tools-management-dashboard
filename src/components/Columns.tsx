@@ -6,6 +6,8 @@ import { statuses } from "../constants/data"
 import { Task } from "../constants/schema"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 import { DataTableRowActions } from "./DataTableRowActions"
+import { getStatusColor } from "src/utils"
+import { Status } from "src/types"
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -70,7 +72,7 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className="flex w-[100px] items-center">
           {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+            <status.icon className={`mr-2 h-4 w-4 ${getStatusColor(status.value as Status, 'text')}`} />
           )}
           <span>{status.label}</span>
         </div>

@@ -6,6 +6,7 @@ export default {
   theme: {
     extend: {
        colors: {
+       'dark-blue': "#173E55",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

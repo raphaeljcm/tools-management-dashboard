@@ -2,7 +2,7 @@ import * as React from "react"
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import { Column } from "@tanstack/react-table"
 
-import { cn } from "../utils"
+import { cn, getStatusColor } from "../utils"
 import { Badge } from "./Badge"
 import { Button } from "./Button"
 import {
@@ -20,6 +20,7 @@ import {
   PopoverTrigger,
 } from "./Popover"
 import { Separator } from "./Separator"
+import { Status } from "src/types"
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>
@@ -60,7 +61,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.size} selected
+                    {selectedValues.size} selecionado
                   </Badge>
                 ) : (
                   options
@@ -84,7 +85,7 @@ export function DataTableFacetedFilter<TData, TValue>({
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>Nenhum resultado encontrado.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)
@@ -114,7 +115,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                       <CheckIcon className={cn("h-4 w-4")} />
                     </div>
                     {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                      <option.icon className={`mr-2 h-4 w-4 ${getStatusColor(option.value as Status, 'text')}`} />
                     )}
                     <span>{option.label}</span>
                     {facets?.get(option.value) && (
@@ -134,7 +135,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                     onSelect={() => column?.setFilterValue(undefined)}
                     className="justify-center text-center"
                   >
-                    Clear filters
+                    Limpar filtros
                   </CommandItem>
                 </CommandGroup>
               </>
