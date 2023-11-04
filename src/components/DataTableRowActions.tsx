@@ -1,23 +1,23 @@
-import { DotsHorizontalIcon } from "@radix-ui/react-icons"
-import { Row } from "@tanstack/react-table"
-import { Button } from "./Button"
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
+import { Button } from './Button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from "./DropdownMenu"
-import { useState } from "react"
-import { SheetDetails } from "./SheetDetails"
+  DropdownMenuTrigger,
+} from './DropdownMenu';
+import { useState } from 'react';
+import { SheetDetails } from './SheetDetails';
 
 interface DataTableRowActionsProps<TData> {
-  row: Row<TData>
+  row: Row<TData>;
 }
 
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
   return (
     <>
@@ -32,11 +32,17 @@ export function DataTableRowActions<TData>({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
-          <DropdownMenuItem onClick={() => setIsDetailsModalOpen(true)}>Detalhes</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsDetailsModalOpen(true)}>
+            Detalhes
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-    
-      <SheetDetails isOpen={isDetailsModalOpen} onOpenChange={setIsDetailsModalOpen} row={row} />
+
+      <SheetDetails
+        isOpen={isDetailsModalOpen}
+        onOpenChange={setIsDetailsModalOpen}
+        row={row}
+      />
     </>
-  )
+  );
 }

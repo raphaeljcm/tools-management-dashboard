@@ -1,1 +1,1 @@
-export type Status = 'broken' | 'available' | 'in use'
+export type Status = 'broken' | 'available' | 'in use';
