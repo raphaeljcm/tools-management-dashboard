@@ -1,3 +1,5 @@
+import markerPng from 'src/assets/marker.png';
+import L from 'leaflet';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/Sheet';
 import { Row } from '@tanstack/react-table';
 import { Task } from 'src/constants/schema';
@@ -23,6 +25,14 @@ const getStatusLabel = (status: Status) => {
       return 'Desconhecido';
   }
 };
+
+const happyMapIcon = L.icon({
+  iconUrl: markerPng,
+
+  iconSize: [25, 41],
+  iconAnchor: [29, 41],
+  popupAnchor: [-15, -60],
+});
 
 export function SheetDetails<TData>({
   isOpen,
@@ -77,7 +87,7 @@ export function SheetDetails<TData>({
                 doubleClickZoom
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker position={[-19.9059017, -43.9661412]}>
+                <Marker icon={happyMapIcon} position={[latitute, longitude]}>
                   <Popup>Newton Paiva</Popup>
                 </Marker>
               </MapContainer>

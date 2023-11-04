@@ -27,6 +27,10 @@ function App() {
         </nav>
       </aside>
 
+      <div className="sr-only text-red-500 bg-red-500" />
+      <div className="sr-only text-green-500 bg-green-500" />
+      <div className="sr-only text-yellow-500 bg-yellow-500" />
+
       <main className="p-10 grid grid-rows-[1fr_5fr]">
         <h2 className="font-bold text-dark-blue text-2xl text-center">
           Tool Management Dashboard
