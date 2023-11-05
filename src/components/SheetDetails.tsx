@@ -1,11 +1,20 @@
 import markerPng from 'src/assets/marker.png';
 import L from 'leaflet';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/Sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from '@/Sheet';
 import { Row } from '@tanstack/react-table';
 import { Task } from 'src/constants/schema';
 import { formatDate, getStatusColor } from '../utils';
 import { Status } from 'src/types';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Label } from './Label';
+import { Textarea } from './Textarea';
+import { Button } from './Button';
 
 interface SheetDetailsProps<TData> {
   isOpen: boolean;
@@ -52,48 +61,69 @@ export function SheetDetails<TData>({
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Detalhes da ferramenta</SheetTitle>
+          <SheetTitle className="text-dark-blue">
+            Detalhes da ferramenta
+          </SheetTitle>
+        </SheetHeader>
 
-          <div>
-            <label htmlFor="name">Ferramenta</label>
+        <div className="flex flex-col gap-4 mt-3">
+          <div className="grid w-full gap-1.5">
+            <Label htmlFor="name">Ferramenta</Label>
             <p id="name">{name}</p>
+          </div>
 
-            <label htmlFor="last-maintanance">Última manutenção</label>
+          <div className="grid w-full gap-1.5">
+            <Label htmlFor="last-maintanance">Última manutenção</Label>
             <p id="last-maintanance">{formatDate(lastMaintanance)}</p>
+          </div>
 
-            <label htmlFor="next-maintanance">Próxima manutenção</label>
+          <div className="grid w-full gap-1.5">
+            <Label htmlFor="next-maintanance">Próxima manutenção</Label>
             <p id="next-maintanance">{formatDate(nextMaintanance)}</p>
+          </div>
 
-            <label htmlFor="status">Status</label>
+          <div className="grid w-full gap-1.5">
+            <Label htmlFor="status">Status</Label>
             <div
               id="status"
-              className={`px-3 py-2 font-medium rounded-full w-fit ${getStatusColor(
+              className={`px-3 py-2 font-medium rounded-full mt-1 w-fit ${getStatusColor(
                 status as Status,
                 'bg',
               )}`}
             >
               {getStatusLabel(status as Status)}
             </div>
-
-            <div className="h-[200px] w-full">
-              <MapContainer
-                style={{ width: '100%', height: '100%' }}
-                center={[latitute, longitude]}
-                zoom={15}
-                dragging
-                touchZoom
-                zoomControl
-                scrollWheelZoom
-                doubleClickZoom
-              >
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <Marker icon={happyMapIcon} position={[latitute, longitude]}>
-                  <Popup>Newton Paiva</Popup>
-                </Marker>
-              </MapContainer>
-            </div>
           </div>
-        </SheetHeader>
+
+          <div className="h-[200px] w-full">
+            <Label htmlFor="map">Localização</Label>
+            <MapContainer
+              style={{ width: '100%', height: '100%', marginTop: '1rem' }}
+              center={[latitute, longitude]}
+              zoom={15}
+              id="map"
+              dragging
+              touchZoom
+              zoomControl
+              scrollWheelZoom
+              doubleClickZoom
+            >
+              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+              <Marker icon={happyMapIcon} position={[latitute, longitude]}>
+                <Popup>{name}</Popup>
+              </Marker>
+            </MapContainer>
+          </div>
+
+          <div className="grid w-full gap-1.5 mt-12">
+            <Label htmlFor="obs">Observações</Label>
+            <Textarea id="obs" placeholder="Escreva suas observações aqui" />
+          </div>
+        </div>
+
+        <SheetFooter className="mt-4">
+          <Button className="bg-dark-blue">Concluir</Button>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
